@@ -1,9 +1,25 @@
+---
+title: 观察者模式( Observer Pattern )
+description: 观察者模式定义了对象之间的一对多以来，当一个对象改变状态时，它的所有依赖者都会收到通知并自动更新。
+categories:
+ - 设计模式
+tags:
+ - 设计模式
+---
+
 # 观察者模式
-> 文章中的内容几乎全部来自于（《Head First Design Pattern》一书），稍做整理和记录。
-> 文章中涉及到的所有代码，均来自于[https://github.com/bethrobson/Head-First-Design-Patterns](https://github.com/bethrobson/Head-First-Design-Patterns)；如果时间允许，强烈建议阅读此书（购买时，请选择正版）。
+
+> 文章中的内容几乎全部来自于（《Head First Design Pattern》一书），稍做整理形成记录。
+>
+> 文章中涉及到的所有代码，均来自于[https://github.com/bethrobson/Head-First-Design-Patterns](https://github.com/bethrobson/Head-First-Design-Patterns)；强烈建议阅读此书（购买时，请选择正版）。
+
 ## 定义观察者
-&ensp;&ensp;观察者模式定义了对象之间的一对多以来，当一个对象改变状态时，它的所有依赖者都会收到通知并自动更新。
-### 类图
+
+观察者模式定义了对象之间的一对多以来，当一个对象改变状态时，它的所有依赖者都会收到通知并自动更新。
+
+## 类图
+
+后续添加
 
 ## 气象站设计和实现
 
