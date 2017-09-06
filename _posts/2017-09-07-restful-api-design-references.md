@@ -1,11 +1,15 @@
 ---
 title: Restful API 设计规范( Restful API Design References )
-description: REST（英文：Representational State Transfer，又称具象状态传输）是Roy Thomas Fielding博士于2000年在他的博士论文中提出来的一种万维网软件架构风格，目的是便于不同软件/程序在网络（例如互联网）中互相传递信息。
+description: 
 categories:
  - Restful API
 tags:
  - Restful API
 ---
+
+> REST（英文：Representational State Transfer，又称具象状态传输）是Roy Thomas Fielding博士于2000年在他的博士论文中提出来的一种万维网软件架构风格，目的是便于不同软件/程序在网络（例如互联网）中互相传递信息。
+
+<!-- more -->
 
 > 本文内容几乎全部来自于网络，经过整理归纳形成记录。文章末尾均有出处，如有遗漏，可联系本人。
 
@@ -40,10 +44,10 @@ tags:
 
 在API上加入版本信息可以有效的防止用户访问已经更新了的API，同时也能让不同主要版本之间平稳过渡。关于是否将版本信息放入url还是放入请求头有过争论：[API version should be included in the URL or in a header.](https://stackoverflow.com/questions/389169/best-practices-for-API-versioning) 学术界说它应该放到header里面去，但是如果放到url里面我们就可以跨版本的访问资源了。（参考openstack）。
 
-###### 观点：
+#### 观点：
 > 一个好的RESTful API会在URL中包含版本信息。另一种比较常见的方案是在请求头里面保持版本信息，在请求头里面包含版本信息远没有放在URL里面来的容易。
 
-###### 例子：
+#### 例子：
 
     https://example.org/api/v1/*
     
@@ -58,55 +62,55 @@ tags:
 
 构建一个虚构的API来展现几个不同的动物园，每一个动物园又包含很多动物，员工和每个动物的物种，可能会有如下的Endpoints信息：
 
-> https://api.example.com/v1/**zoos**
+> * https://api.example.com/v1/**zoos**
 >
-> https://api.example.com/v1/**animals**
+> * https://api.example.com/v1/**animals**
 >
-> https://api.example.com/v1/**animal_types**
+> * https://api.example.com/v1/**animal_types**
 >
-> https://api.example.com/v1/**employees**
+> * https://api.example.com/v1/**employees**
 
 针对每一个Endpoints来说，可能列出所有可行的HTTP动词和Endpoints的组合。如下所示:
 
-> GET /zoos: List all Zoos (ID and Name, not too much detail)
+> * GET /zoos: List all Zoos (ID and Name, not too much detail)
 > 
-> POST /zoos: Create a new Zoo
+> * POST /zoos: Create a new Zoo
 > 
-> GET /zoos/ZID: Retrieve an entire Zoo object
+> * GET /zoos/ZID: Retrieve an entire Zoo object
 > 
-> PUT /zoos/ZID: Update a Zoo (entire object)
+> * PUT /zoos/ZID: Update a Zoo (entire object)
 > 
-> PATCH /zoos/ZID: Update a Zoo (partial object)
+> * PATCH /zoos/ZID: Update a Zoo (partial object)
 > 
-> DELETE /zoos/ZID: Delete a Zoo
+> * DELETE /zoos/ZID: Delete a Zoo
 > 
-> GET /zoos/ZID/animals: Retrieve a listing of Animals (ID and Name).
+> * GET /zoos/ZID/animals: Retrieve a listing of Animals (ID and Name).
 > 
-> GET /animals: List all Animals (ID and Name).
+> * GET /animals: List all Animals (ID and Name).
 > 
-> POST /animals: Create a new Animal
+> * POST /animals: Create a new Animal
 > 
-> GET /animals/AID: Retrieve an Animal object
+> * GET /animals/AID: Retrieve an Animal object
 > 
-> PUT /animals/AID: Update an Animal (entire object)
+> * PUT /animals/AID: Update an Animal (entire object)
 > 
-> PATCH /animals/AID: Update an Animal (partial object)
+> * PATCH /animals/AID: Update an Animal (partial object)
 > 
-> GET /animal_types: Retrieve a listing (ID and Name) of all Animal Types
+> * GET /animal_types: Retrieve a listing (ID and Name) of all Animal Types
 > 
-> GET /animal_types/ATID: Retrieve an entire Animal Type object
+> * GET /animal_types/ATID: Retrieve an entire Animal Type object
 > 
-> GET /employees: Retrieve an entire list of Employees
+> * GET /employees: Retrieve an entire list of Employees
 > 
-> GET /employees/EID: Retreive a specific Employee
+> * GET /employees/EID: Retreive a specific Employee
 > 
-> GET /zoos/ZID/employees: Retrieve a listing of Employees (ID and Name) who work at this Zoo
+> * GET /zoos/ZID/employees: Retrieve a listing of Employees (ID and Name) who work at this Zoo
 > 
-> POST /employees: Create a new Employee
+> * POST /employees: Create a new Employee
 > 
-> POST /zoos/ZID/employees: Hire an Employee at a specific Zoo
+> * POST /zoos/ZID/employees: Hire an Employee at a specific Zoo
 > 
-> DELETE /zoos/ZID/employees/EID: Fire an Employee from a specific Zoo
+> * DELETE /zoos/ZID/employees/EID: Fire an Employee from a specific Zoo
 
 #### 关联资源使用的另一个例子：
 
@@ -123,6 +127,7 @@ tags:
 > * DELETE /tickets/12/messages/5- Deletes message #5 for ticket #12
 >
 > 其中，如果这种关联和资源独立，那么我们可以在资源的输出表示中保存相应资源的endpoint。然后API的使用者就可以通过点击链接找到相关的资源。如果关联和资源联系紧密。资源的输出表示就应该直接保存相应资源信息。（例如这里如果message资源是独立存在的，那么上面 GET /tickets/12/messages就会返回相应message的链接；相反的如果message不独立存在，他和ticket依附存在，则上面的API调用返回直接返回message信息）
+
 #### 特殊资源类型
 
 理想的 REST 世界，一切事物都抽象为资源，一切操作都抽象为增删改查。然而，所有事物与操作都可以很容易的按照这个规则作抽象吗？让我们看看这个例子：
@@ -139,21 +144,21 @@ tags:
 
 这里至少有四个半非常重要的HTTP动词需要你知道。我之所以说“半个”的意思是PATCH这个动词非常类似于PUT，并且它们俩也常常被开发者绑定到同一个API上。
 
-> GET (选择)：从服务器上获取一个具体的资源或者一个资源列表。
+> * GET (选择)：从服务器上获取一个具体的资源或者一个资源列表。
 > 
-> POST （创建）： 在服务器上创建一个新的资源。
+> * POST （创建）： 在服务器上创建一个新的资源。
 > 
-> PUT （更新）：以整体的方式更新服务器上的一个资源。
+> * PUT （更新）：以整体的方式更新服务器上的一个资源。
 > 
-> PATCH （更新）：只更新服务器上一个资源的一个属性。
+> * PATCH （更新）：只更新服务器上一个资源的一个属性。
 > 
-> DELETE （删除）：删除服务器上的一个资源。
+> * DELETE （删除）：删除服务器上的一个资源。
 
 还有两个不常用的HTTP动词：
 
-> HEAD ： 获取一个资源的元数据，如数据的哈希值或最后的更新时间。
+> * HEAD ： 获取一个资源的元数据，如数据的哈希值或最后的更新时间。
 >
-> OPTIONS：获取客户端能对资源做什么操作的信息。
+> * OPTIONS：获取客户端能对资源做什么操作的信息。
 
 一个好的RESTful API只允许第三方调用者使用这四个半HTTP动词进行数据交互，并且在URL段里面不出现任何其他的动词。
 
@@ -171,23 +176,23 @@ HTTP 协议从本质上说是一种无状态的协议，客户端发出的 HTTP 
 
 **排序**：和过滤一样，一个好的排序参数应该能够描述排序规则，而不业务相关。复杂的排序规则应该通过组合实现：
 
-> GET /ticketssort=-priority- Retrieves a list of tickets in descending order of priority
+> * GET /ticketssort=-priority- Retrieves a list of tickets in descending order of priority
 >
-> GET /ticketssort=-priority,created_at- Retrieves a list of tickets in descending order of priority. Within a specific priority, older tickets are ordered first
+> * GET /ticketssort=-priority,created_at- Retrieves a list of tickets in descending order of priority. Within a specific priority, older tickets are ordered first
 >
 > 这里第二条查询中，排序规则有多个rule以逗号间隔组合而成。
 
 **搜索**：有些时候简单的排序是不够的。我们可以使用搜索技术（ElasticSearch和Lucene）来实现（依旧可以作为url的参数）。
 
-> GET /ticketsq=return&state=open&sort=-priority,created_at- Retrieve the highest priority open tickets mentioning the word ‘return’
+> * GET /ticketsq=return&state=open&sort=-priority,created_at- Retrieve the highest priority open tickets mentioning the word ‘return’
 
 对于经常使用的搜索查询，我们可以为他们设立别名,这样会让API更加优雅。例如：
-> get /ticketsq=recently_closed -> get /tickets/recently_closed.
+> * GET /ticketsq=recently_closed -> get /tickets/recently_closed.
 
 
 下面例子为Github的分页处理：
 
-> curl 'https://api.github.com/user/repos?page=2&per_page=100'
+> * curl 'https://api.github.com/user/repos?page=2&per_page=100'
 
 ## 使用HTTP响应状态码
 
