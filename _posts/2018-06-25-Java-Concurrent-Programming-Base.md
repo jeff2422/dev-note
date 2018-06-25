@@ -221,6 +221,7 @@ Demo:
 	        }
 	    }
 	}
+	
 #### 6. Thread.join()的使用
 如果一个线程A执行了thread.join()语句，其含义是：当前线程A等待thread线程终止之后才从thread.join()返回。Thread还提供了join(long millis)和join(long millis, int nanos)两个超时特性的方法。
 
