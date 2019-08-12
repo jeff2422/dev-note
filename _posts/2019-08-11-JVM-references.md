@@ -1,6 +1,6 @@
 ---
 title: 深入理解 JVM 虚拟机 - 内存分析篇
-description: JVM高级特性与最佳实践
+description: 深入理解 JVM 虚拟机 - 内存分析篇
 categories:
  - JVM Java虚拟机
 tags:
